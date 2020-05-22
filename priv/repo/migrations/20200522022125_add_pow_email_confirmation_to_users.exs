@@ -1,4 +1,4 @@
-defmodule Dashtag.Repo.Migrations.AddPowEmailConfirmationToUsers do
+defmodule Nickdotcom.Repo.Migrations.AddPowEmailConfirmationToUsers do
   use Ecto.Migration
 
   def change do

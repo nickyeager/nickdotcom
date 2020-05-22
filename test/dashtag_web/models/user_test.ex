@@ -1,5 +1,5 @@
-defmodule DashtagWeb.UserTest do
-  use DashtagWeb.ModelCase
-  alias DashtagWeb.User
+defmodule NickdotcomWeb.UserTest do
+  use NickdotcomWeb.ModelCase
+  alias NickdotcomWeb.User
 
 end

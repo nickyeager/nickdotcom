@@ -1,16 +1,16 @@
 use Mix.Config
 
 # Configure your database
-config :dashtag, Dashtag.Repo,
+config :nickdotcom, Nickdotcom.Repo,
   username: "postgres",
   password: "",
-  database: "dashtag_test",
+  database: "nickdotcom_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :dashtag, DashtagWeb.Endpoint,
+config :nickdotcom, NickdotcomWeb.Endpoint,
   http: [port: 4002],
   server: false
 

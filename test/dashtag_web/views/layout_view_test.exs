@@ -1,5 +1,5 @@
-defmodule DashtagWeb.LayoutViewTest do
-  use DashtagWeb.ConnCase, async: true
+defmodule NickdotcomWeb.LayoutViewTest do
+  use NickdotcomWeb.ConnCase, async: true
 
   # When testing helpers, you may want to import Phoenix.HTML and
   # use functions such as safe_to_string() to convert the helper

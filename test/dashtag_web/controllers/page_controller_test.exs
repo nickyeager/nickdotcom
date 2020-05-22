@@ -1,5 +1,5 @@
-defmodule DashtagWeb.PageControllerTest do
-  use DashtagWeb.ConnCase
+defmodule NickdotcomWeb.PageControllerTest do
+  use NickdotcomWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")

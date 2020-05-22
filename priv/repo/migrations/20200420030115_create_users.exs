@@ -1,4 +1,4 @@
-defmodule Dashtag.Repo.Migrations.CreateUsers do
+defmodule Nickdotcom.Repo.Migrations.CreateUsers do
   use Ecto.Migration
 
   def change do

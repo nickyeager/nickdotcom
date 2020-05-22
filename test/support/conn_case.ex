@@ -1,4 +1,4 @@
-defmodule DashtagWeb.ConnCase do
+defmodule NickdotcomWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,7 +11,7 @@ defmodule DashtagWeb.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use DashtagWeb.ConnCase, async: true`, although
+  by setting `use NickdotcomWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -21,18 +21,18 @@ defmodule DashtagWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      alias DashtagWeb.Router.Helpers, as: Routes
+      alias NickdotcomWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint DashtagWeb.Endpoint
+      @endpoint NickdotcomWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Dashtag.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Nickdotcom.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Dashtag.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Nickdotcom.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}

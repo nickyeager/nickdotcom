@@ -1,4 +1,4 @@
-defmodule Dashtag.DataCase do
+defmodule Nickdotcom.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -10,7 +10,7 @@ defmodule Dashtag.DataCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use Dashtag.DataCase, async: true`, although
+  by setting `use Nickdotcom.DataCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -18,20 +18,20 @@ defmodule Dashtag.DataCase do
 
   using do
     quote do
-      alias Dashtag.Repo
+      alias Nickdotcom.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Dashtag.DataCase
+      import Nickdotcom.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Dashtag.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Nickdotcom.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Dashtag.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Nickdotcom.Repo, {:shared, self()})
     end
 
     :ok

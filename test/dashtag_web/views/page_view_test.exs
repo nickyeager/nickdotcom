@@ -1,3 +1,3 @@
-defmodule DashtagWeb.PageViewTest do
-  use DashtagWeb.ConnCase, async: true
+defmodule NickdotcomWeb.PageViewTest do
+  use NickdotcomWeb.ConnCase, async: true
 end

@@ -2,6 +2,7 @@
   <library name="pow" type="mix">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/_build/dev/lib/pow/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/test/lib/pow/ebin" />
     </CLASSES>
     <SOURCES>
       <root url="file://$PROJECT_DIR$/deps/pow/lib" />
