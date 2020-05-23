@@ -4,6 +4,8 @@ defmodule Nickdotcom.Users.User do
   use Pow.Extension.Ecto.Schema,
       extensions: [PowResetPassword, PowEmailConfirmation, PowInvitation]
 
+  alias Nickdotcom.{Repo, Users.User}
+
   def changeset(user_or_changeset, attrs) do
     user_or_changeset
     |> pow_changeset(attrs)
@@ -22,5 +24,22 @@ defmodule Nickdotcom.Users.User do
     user_or_changeset
     |> Ecto.Changeset.cast(attrs, [:role])
     |> Ecto.Changeset.validate_inclusion(:role, ~w(user admin))
+  end
+
+  @type t :: %User{}
+
+  @spec create_admin(map()) :: {:ok, t()} | {:error, Ecto.Changeset.t()}
+  def create_admin(params) do
+    %User{}
+    |> User.changeset(params)
+    |> User.changeset_role(%{role: "admin"})
+    |> Repo.insert()
+  end
+
+  @spec set_admin_role(t()) :: {:ok, t()} | {:error, Ecto.Changeset.t()}
+  def set_admin_role(user) do
+    user
+    |> User.changeset_role(%{role: "admin"})
+    |> Repo.update()
   end
 end
