@@ -1,4 +1,7 @@
 /* This file is for your main application css. */
 
-@import "./phoenix.css";
+@import "./normalize.css";
+@import "./sakura.css";
+@import "./sakura-dark.css";
+/*@import "./sakura-dark-solarized.css";*/
 @import "./custom.css";
