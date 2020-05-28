@@ -1,8 +1,7 @@
 defmodule Nickdotcom.Articles.Post do
   use Ecto.Schema
   import Ecto.Changeset
-  import IO
-  import String
+  use Timex
 
   schema "posts" do
     field :body, :string
@@ -43,6 +42,24 @@ defmodule Nickdotcom.Articles.Post do
     else
       changeset
     end
+  end
+
+  def date_format(date), do: date_format date, "%d %b %Y"
+
+  def date_format(date = %DateTime{}, format_string) do
+    DateTime.to_iso8601(date)
+    |> date_formatter(format_string)
+  end
+  def date_format(date = %Date{}, format_string) do
+    << Date.to_iso8601(date) <> "T00:00:00Z" >>
+    |> date_formatter(format_string)
+  end
+  def date_format(_, _format), do: ""
+
+  defp date_formatter(date, format_string) do
+    date
+    |> DateFormat.parse!("{ISOz}")
+    |> DateFormat.format!(format_string, :strftime)
   end
 
 end

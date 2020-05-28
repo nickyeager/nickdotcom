@@ -1,28 +1,22 @@
-<h1>Show Post</h1>
 
-<ul>
-
-  <li>
-    <strong>Title:</strong>
-    <%= @post.title %>
-  </li>
-
-  <li>
-    <strong>Body:</strong>
+  <div>
+    <h3><%= @post.title %></h3>
+  </div>
+  <div>
     <%= @post.body %>
-  </li>
-
-  <li>
+  </div>
+  <div>
     <strong>Published:</strong>
-    <%= @post.published %>
-  </li>
-
-  <li>
-    <strong>User:</strong>
+    <%= @post.inserted_at %>
+  </div>
+  <div>
+    <strong>Updated:</strong>
+    <%= @post.updated_at %>
+  </div>
+  <div>
+    <strong>Author:</strong>
     <%= @post.user.email %>
-  </li>
-
-</ul>
+  </div>
 
 <span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span>
 <span><%= link "Back", to: Routes.post_path(@conn, :index) %></span>
