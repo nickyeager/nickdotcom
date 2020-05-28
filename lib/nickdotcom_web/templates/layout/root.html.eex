@@ -11,8 +11,8 @@
   <body>
     <header>
       <section class="container">
-        <a href="/" class="phx-logo">
-          <h1>Nicks Yeager</h1>
+        <a href="/">
+          <h1>Dummy Developer</h1>
         </a>
       </section>
       <nav role="navigation">

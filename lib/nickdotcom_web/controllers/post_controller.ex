@@ -4,6 +4,12 @@ defmodule NickdotcomWeb.PostController do
   alias Nickdotcom.Articles
   alias Nickdotcom.Articles.Post
 
+
+  defp split_article_url(url) do
+    [id|_] = url |> String.split("/")
+    id
+  end
+
   def index(conn, _params) do
     posts = Articles.list_posts()
     render(conn, "index.html", posts: posts)
@@ -27,20 +33,20 @@ defmodule NickdotcomWeb.PostController do
   end
 
   def show(conn, %{"url" => url}) do
-    [id|_] = url |> String.split("/")
+    id = split_article_url(url)
     post = Articles.get_post!(id)
     render(conn, "show.html", post: post)
   end
 
   def edit(conn, %{"url" => url}) do
-    [id|_] = url |> String.split("/")
+    id = split_article_url(url)
     post = Articles.get_post!(id)
     changeset = Articles.change_post(post)
     render(conn, "edit.html", post: post, changeset: changeset)
   end
 
   def update(conn, %{"url" => url, "post" => post_params}) do
-    [id|_] = url |> String.split("/")
+    id = split_article_url(url)
     post = Articles.get_post!(id)
 
     case Articles.update_post(post, post_params) do
@@ -55,7 +61,7 @@ defmodule NickdotcomWeb.PostController do
   end
 
   def delete(conn, %{"url" => url}) do
-    [id|_] = url |> String.split("/")
+    id = split_article_url(url)
     post = Articles.get_post!(id)
     {:ok, _post} = Articles.delete_post(post)
 

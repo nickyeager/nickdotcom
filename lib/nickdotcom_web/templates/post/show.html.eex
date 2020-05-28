@@ -18,18 +18,8 @@
   </li>
 
   <li>
-    <strong>Cover:</strong>
-    <%= @post.cover %>
-  </li>
-
-  <li>
     <strong>User:</strong>
-    <%= @post.user_id %>
-  </li>
-
-  <li>
-    <strong>Slug:</strong>
-    <%= @post.slug %>
+    <%= @post.user.email %>
   </li>
 
 </ul>

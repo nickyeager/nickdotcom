@@ -17,6 +17,10 @@
   <%= checkbox f, :published %>
   <%= error_tag f, :published %>
 
+  <%= if Pow.Plug.current_user(@conn) do %>
+    <%= hidden_input f, :user_id, id: "user_id", value: @current_user.id %>
+  <% end %>
+
   <%= label f, :cover %>
   <%= text_input f, :cover %>
   <%= error_tag f, :cover %>

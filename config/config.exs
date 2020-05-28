@@ -38,9 +38,9 @@ config :nickdotcom, :pow,
        user: Nickdotcom.Users.User,
        repo: Nickdotcom.Repo,
        web_module: NickdotcomWeb,
-       mailer_backend: NickdotcomWeb.Mailer
-#       extensions: [PowResetPassword, PowEmailConfirmation, PowInvitation],
-#       controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
+       mailer_backend: NickdotcomWeb.Mailer,
+       extensions: [PowResetPassword, PowEmailConfirmation, PowInvitation],
+       controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
