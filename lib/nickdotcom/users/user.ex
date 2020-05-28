@@ -14,6 +14,7 @@ defmodule Nickdotcom.Users.User do
 
   schema "users" do
     field :role, :string, null: false, default: "user"
+    has_many :posts, Nickdotcom.Articles.Post
     pow_user_fields()
 
     timestamps()

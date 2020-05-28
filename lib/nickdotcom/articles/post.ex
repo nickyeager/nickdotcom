@@ -10,7 +10,7 @@ defmodule Nickdotcom.Articles.Post do
     field :published, :boolean, default: false
     field :slug, :string
     field :title, :string
-    field :user_id, :integer
+    belongs_to :user, Nickdotcom.Users.User
 
     timestamps()
   end
@@ -26,7 +26,7 @@ defmodule Nickdotcom.Articles.Post do
 
   defimpl Phoenix.Param, for: Nickdotcom.Articles.Post do
     def to_param(%{id: id, slug: slug}) do
-      "#{id}/#{slug}"
+      "#{id}-#{slug}"
     end
   end
 
@@ -38,7 +38,6 @@ defmodule Nickdotcom.Articles.Post do
       |> String.downcase()
       |> String.replace(~r/[^a-z0-9\s-]/, "")
       |> String.replace(~r/(\s|-)+/, "-")
-
 
       put_change(changeset, :slug, new_title)
     else
