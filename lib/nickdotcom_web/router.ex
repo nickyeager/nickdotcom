@@ -24,11 +24,6 @@ defmodule NickdotcomWeb.Router do
          error_handler: Pow.Phoenix.PlugErrorHandler
   end
 
-  pipeline :not_authenticated do
-    plug Pow.Plug.RequireNotAuthenticated,
-         error_handler: Pow.Phoenix.AuthErrorHandler
-  end
-
   scope "/" do
     pipe_through :browser
 
@@ -38,11 +33,10 @@ defmodule NickdotcomWeb.Router do
 
 
   scope "/", NickdotcomWeb do
-    pipe_through [:browser, :not_authenticated]
-
+    pipe_through :browser # Use the default browser stack
+    resources "/posts", PostController, param: "url"
     get "/", PageController, :index
-    live "/gallery", GalleryLive
-    live "/counter", CounterLive
+
   end
 
   scope "/", NickdotcomWeb do
@@ -51,7 +45,7 @@ defmodule NickdotcomWeb.Router do
 
   scope "/api/v1", NickdotcomWeb do
     pipe_through [:api, :protected]
-    get "/users", UserController, :index
+#    get "/users", UserController, :index
   end
 
   # Other scopes may use custom stacks.
