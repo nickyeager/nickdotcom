@@ -3,6 +3,7 @@ defmodule NickdotcomWeb.Mailer do
   use Bamboo.Mailer, otp_app: :nickdotcom
 
   import Bamboo.Email
+  require Logger
 
   @impl true
   def cast(%{user: user, subject: subject, text: text, html: html}) do
@@ -17,6 +18,7 @@ defmodule NickdotcomWeb.Mailer do
 
   @impl true
   def process(email) do
+    Logger.debug("E-mail sent: #{inspect email}")
     deliver_now(email)
   end
 end
