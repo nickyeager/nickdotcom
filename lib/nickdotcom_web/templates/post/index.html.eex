@@ -1,15 +1,12 @@
-<h1>Listing Posts</h1>
+<h3>Listing Posts</h3>
 
 <table>
   <thead>
     <tr>
       <th>Title</th>
       <th>Body</th>
-      <th>Published</th>
-      <th>Cover</th>
-      <th>User</th>
-      <th>Slug</th>
-
+      <th>Created</th>
+      <th>Author</th>
       <th></th>
     </tr>
   </thead>
@@ -18,10 +15,8 @@
     <tr>
       <td><%= post.title %></td>
       <td><%= post.body %></td>
-      <td><%= post.published %></td>
-      <td><%= post.cover %></td>
-      <td><%= post.user_id %></td>
-      <td><%= post.slug %></td>
+      <td><%= Nickdotcom.Articles.Post.date_format(post.inserted_at) %></td>
+      <td><%= post.user.email %></td>
 
       <td>
         <span><%= link "Show", to: Routes.post_path(@conn, :show, post) %></span>

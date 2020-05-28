@@ -6,7 +6,7 @@ defmodule NickdotcomWeb.PostController do
 
 
   defp split_article_url(url) do
-    [id|_] = url |> String.split("/")
+    [id|_] = url |> String.split("-")
     id
   end
 
