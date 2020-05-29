@@ -26,6 +26,9 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :phoenix, :template_engines,
+       md: PhoenixMarkdown.Engine
+
 config :nickdotcom, NickdotcomWeb.Mailer,
        adapter: Bamboo.SendGridAdapter,
        api_key: "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",

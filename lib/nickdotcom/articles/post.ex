@@ -20,7 +20,8 @@ defmodule Nickdotcom.Articles.Post do
     post
     |> cast(attrs, [:title, :body, :published, :cover, :user_id])
     |> slugify_title()
-    |> validate_required([:title, :body, :published, :cover])
+    |> validate_required([:title, :body])
+    |> strip_unsafe_body(attrs)
   end
 
   defimpl Phoenix.Param, for: Nickdotcom.Articles.Post do
@@ -61,5 +62,19 @@ defmodule Nickdotcom.Articles.Post do
     |> DateFormat.parse!("{ISOz}")
     |> DateFormat.format!(format_string, :strftime)
   end
+
+  defp strip_unsafe_body(model, %{"body" => nil}) do
+    model
+  end
+
+  defp strip_unsafe_body(model, %{"body" => body}) do
+    {:safe, clean_body} = Phoenix.HTML.html_escape(body)
+    model |> put_change(:body, clean_body)
+  end
+
+  defp strip_unsafe_body(model, _) do
+    model
+  end
+
 
 end
