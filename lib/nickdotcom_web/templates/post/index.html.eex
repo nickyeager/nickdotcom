@@ -4,7 +4,6 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>Body</th>
       <th>Created</th>
       <th>Author</th>
       <th></th>
@@ -14,7 +13,6 @@
 <%= for post <- @posts do %>
     <tr>
       <td><%= post.title %></td>
-      <td><%= post.body %></td>
       <td><%= Nickdotcom.Articles.Post.date_format(post.inserted_at) %></td>
       <td><%= post.user.email %></td>
 

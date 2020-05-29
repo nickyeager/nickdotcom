@@ -3,7 +3,7 @@
     <h3><%= @post.title %></h3>
   </div>
   <div>
-    <%= @post.body %>
+    <%= raw Earmark.as_html!(@post.body) %>
   </div>
   <div>
     <strong>Published:</strong>
