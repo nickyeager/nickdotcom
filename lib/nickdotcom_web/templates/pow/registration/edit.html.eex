@@ -1,6 +1,6 @@
 <h1>Edit profile</h1>
 
-<%= form_for @changeset, @action, [as: :user], fn f -> %>
+<%= form_for @changeset, @action, [as: :user, multipart: true], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
@@ -20,6 +20,11 @@
       <p>Click the link in the confirmation email to change your email to <%= content_tag(:span, @changeset.data.unconfirmed_email) %>.</p>
     </div>
   <% end %>
+
+  <%= label f, :avatar_url %>
+  <%= file_input f, :avatar_url, class: "form-control" %>
+  <img src="<%= NickdotcomWeb.Avatar.url({ @changeset.data.avatar_url, @changeset.data }, signed: true) %>" width="300" />
+  <%= error_tag f, :avatar_url %>
 
   <%= label f, :password %>
   <%= password_input f, :password %>

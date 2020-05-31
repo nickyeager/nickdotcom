@@ -34,13 +34,13 @@ defmodule NickdotcomWeb.Router do
 
   scope "/", NickdotcomWeb do
     pipe_through :browser # Use the default browser stack
-    resources "/posts", PostController, param: "url"
     get "/", PageController, :index
 
   end
 
   scope "/", NickdotcomWeb do
     pipe_through [:browser, :protected]
+    resources "/posts", PostController, param: "url"
   end
 
   scope "/api/v1", NickdotcomWeb do

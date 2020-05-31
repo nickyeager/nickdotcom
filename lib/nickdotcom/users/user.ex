@@ -5,15 +5,19 @@ defmodule Nickdotcom.Users.User do
       extensions: [PowResetPassword, PowEmailConfirmation, PowInvitation]
 
   alias Nickdotcom.{Repo, Users.User}
+  use Arc.Ecto.Schema
 
+  @spec changeset(Ecto.Schema.t() | Ecto.Changeset.t(), map()) :: Ecto.Changeset.t()
   def changeset(user_or_changeset, attrs) do
     user_or_changeset
     |> pow_changeset(attrs)
+    |> cast_attachments(attrs, [:avatar_url])
     |> pow_extension_changeset(attrs)
   end
 
   schema "users" do
     field :role, :string, null: false, default: "user"
+    field :avatar_url, NickdotcomWeb.Avatar.Type
     has_many :posts, Nickdotcom.Articles.Post
     pow_user_fields()
 
@@ -42,5 +46,14 @@ defmodule Nickdotcom.Users.User do
     user
     |> User.changeset_role(%{role: "admin"})
     |> Repo.update()
+  end
+
+  def upload_directory do
+    Application.get_env(:nickdotcom, :uploads_directory)
+  end
+
+  def local_path(id, filename) do
+    [upload_directory(), "#{id}-#{filename}"]
+    |> Path.join()
   end
 end

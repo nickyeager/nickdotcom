@@ -29,6 +29,17 @@ config :phoenix, :json_library, Jason
 config :phoenix, :template_engines,
        md: PhoenixMarkdown.Engine
 
+config :arc,
+       storage: Arc.Storage.S3, # or Arc.Storage.Local
+       bucket: "nickdotcom-dev" # if using Amazon S3
+
+
+config :ex_aws,
+       access_key_id: "AKIAJVDHP4EASWFBF2EQ",
+       secret_access_key: "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",
+       region: "us-west-2"
+
+
 config :nickdotcom, NickdotcomWeb.Mailer,
        adapter: Bamboo.SendGridAdapter,
        api_key: "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",
