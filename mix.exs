@@ -20,7 +20,7 @@ defmodule Nickdotcom.MixProject do
   def application do
     [
       mod: {Nickdotcom.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :arc_ecto, :runtime_tools]
     ]
   end
 
@@ -47,7 +47,13 @@ defmodule Nickdotcom.MixProject do
       {:pow, "~> 1.0.19"},
       {:bamboo, "~> 1.5"},
       {:timex, "~> 3.5"},
-      {:phoenix_markdown, "~> 1.0.3"}
+      {:phoenix_markdown, "~> 1.0.3"},
+      {:arc_ecto, "~> 0.11.3"},
+      {:ex_aws, "~> 2.0"},
+      {:ex_aws_s3, "~> 2.0"},
+      {:hackney, "~> 1.6"},
+      {:poison, "~> 3.1"},
+      {:sweet_xml, "~> 0.6"}
     ]
   end
 
