@@ -1,7 +1,13 @@
 /* This file is for your main application css. */
 
-@import "./normalize.css";
-/*@import "./sakura.css";*/
-@import "./sakura-ink.css";
-/*@import "./sakura-dark-solarized.css";*/
-@import "./custom.css";
+/* app.css */
+
+@tailwind base;
+
+@tailwind components;
+
+/* Put your custom components here */
+
+@tailwind utilities;
+
+/* Put your custom utilities here */
