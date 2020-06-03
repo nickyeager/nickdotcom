@@ -9,29 +9,62 @@
     <%= csrf_meta_tag() %>
   </head>
   <body>
-    <header>
-      <section class="container">
+  <header class="text-gray-700 body-font">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <img src="https://nickdotcom-dev.s3-us-west-2.amazonaws.com/0.jpeg" class="w-16 h-16 text-white p-2 rounded-full" />
+        <span class="ml-3 text-xl">
         <a href="/">
-          <h1>Dummy Developer</h1>
+            <h1>Dummy Developer</h1>
         </a>
-      </section>
-      <nav role="navigation">
-        <ul class="navigation-links">
-          <%= if Pow.Plug.current_user(@conn) do %>
-            <li>Signed in as: <%= @current_user.email %></li>
-            <li><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></li>
-            <li><%= link "Edit account", to: Routes.pow_registration_path(@conn, :edit) %></li>
-            <li><%= link "Posts", to: "/posts" %></li>
-          <% else %>
-            <li><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></li>
-            <li><%= link "Sign up", to: Routes.pow_registration_path(@conn, :new) %></li>
-          <% end %>
-        </ul>
-      </nav>
-    </header>
-    <main role="main" class="container">
+        </span>
+      </a>
+    <nav role="navigation" class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+        <%= if Pow.Plug.current_user(@conn) do %>
+          <p>Signed in as: <%= @current_user.email %></p>
+          <%= link "Sign out", class: "mr-5 hover:text-gray-900", to: Routes.pow_session_path(@conn, :delete), method: :delete %>
+          <%= link "Edit account", class: "mr-5 hover:text-gray-900", to: Routes.pow_registration_path(@conn, :edit) %>
+        <% else %>
+          <%= link "Sign in", class: "mr-5 hover:text-gray-900", to: Routes.pow_session_path(@conn, :new) %>
+          <%= link "Sign up", class: "mr-5 hover:text-gray-900", to: Routes.pow_registration_path(@conn, :new) %>
+        <% end %>
+    </nav>
+
+      <%= link to: "/posts" do %>
+      <button class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0">
+      Posts
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+        </button>
+        <% end %>
+    </div>
+  </header>
+    <main role="main" class="container mx-auto">
       <%= @inner_content %>
     </main>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
+<footer class="text-gray-700 body-font" style="position:fixed; width:100%; bottom:0;">
+  <div class="bg-gray-200">
+    <div class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
+      <p class="text-gray-500 text-sm text-center sm:text-left">© 2020 Nick Yeager —
+        <a href="https://github.com/nickyeager/nickdotcom" rel="noopener noreferrer" class="text-gray-600 ml-1" target="_blank">Github</a>
+      </p>
+      <span class="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
+        <a class="ml-3 text-gray-500" href="https://twitter.com/nickcyeager" target="_blank" rel="noopener noreferrer">
+          <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+          </svg>
+        </a>
+        <a class="ml-3 text-gray-500" href="https://www.linkedin.com/in/nicholas-yeager-72886523/" target="_blank" rel="noopener noreferrer">
+          <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+            <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+            <circle cx="4" cy="4" r="2" stroke="none"></circle>
+          </svg>
+        </a>
+      </span>
+    </div>
+  </div>
+</footer>

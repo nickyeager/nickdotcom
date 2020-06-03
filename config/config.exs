@@ -35,8 +35,8 @@ config :arc,
 
 
 config :ex_aws,
-       access_key_id: "AKIAJVDHP4EASWFBF2EQ",
-       secret_access_key: "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",
+       access_key_id: "AKIAIEQVRBBYFCT3CQSA",
+       secret_access_key: "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",
        region: "us-west-2"
 
 

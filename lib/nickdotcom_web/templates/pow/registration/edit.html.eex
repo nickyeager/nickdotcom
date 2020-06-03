@@ -1,41 +1,58 @@
-<h1>Edit profile</h1>
-
-<%= form_for @changeset, @action, [as: :user, multipart: true], fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+<section class="text-gray-700 body-font relative">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-12">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Edit profile</h1>
     </div>
-  <% end %>
 
-  <%= label f, :current_password %>
-  <%= password_input f, :current_password %>
-  <%= error_tag f, :current_password %>
+    <div class="lg:w-1/2 md:w-2/3 mx-auto">
 
-  <%= label f, Pow.Ecto.Schema.user_id_field(@changeset) %>
-  <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset) %>
-  <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+        <%= form_for @changeset, @action, [as: :user, multipart: true], fn f -> %>
+            <%= if @changeset.action do %>
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                  <strong class="font-bold">Oops!</strong>
+                  <span class="block sm:inline">Something went wrong! Please check the errors below.</span>
+                  <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                  </span>
+                </div>
+            <% end %>
+          <div class="p-2 w-full">
+              <%= label f, :current_password, class: "block text-gray-700 text-sm font-bold mb-2" %>
+              <%= password_input f, :current_password, class: "w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2 mb-4" %>
+              <%= error_tag f, :current_password %>
+          </div>
+          <div class="p-2 w-full">
+              <%= label f, Pow.Ecto.Schema.user_id_field(@changeset), class: "block text-gray-700 text-sm font-bold mb-2" %>
+              <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset), class: "w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2 mb-4" %>
+              <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+          </div>
+          <%= if @changeset.data.unconfirmed_email do %>
+            <div>
+              <p>Click the link in the confirmation email to change your email to <%= content_tag(:span, @changeset.data.unconfirmed_email) %>.</p>
+            </div>
+          <% end %>
 
-  <%= if @changeset.data.unconfirmed_email do %>
-    <div>
-      <p>Click the link in the confirmation email to change your email to <%= content_tag(:span, @changeset.data.unconfirmed_email) %>.</p>
+          <div class="p-2 w-full">
+              <%= label f, :avatar_url, class: "block text-gray-700 text-sm font-bold mb-2"  %>
+              <%= file_input f, :avatar_url, class: "w-full form-control bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2 mb-4" %>
+              <img src="<%= NickdotcomWeb.Avatar.url({ @changeset.data.avatar_url, @changeset.data }, signed: true) %>" />
+              <%= error_tag f, :avatar_url %>
+          </div>
+          <div class="p-2 w-full">
+              <%= label f, :password, class: "block text-gray-700 text-sm font-bold mb-2" %>
+              <%= password_input f, :password, class: "w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2 mb-4" %>
+              <%= error_tag f, :password %>
+          </div>
+
+          <div class="p-2 w-full">
+              <%= label f, :password_confirmation, class: "block text-gray-700 text-sm font-bold mb-2" %>
+              <%= password_input f, :password_confirmation, class: "w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2 mb-4" %>
+              <%= error_tag f, :password_confirmation %>
+          </div>
+          <div class="p-2 w-full">
+            <%= submit "Update", class: "text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none mb-4 hover:bg-indigo-600 rounded text-lg"  %>
+          </div>
+        <% end %>
+     </div>
     </div>
-  <% end %>
-
-  <%= label f, :avatar_url %>
-  <%= file_input f, :avatar_url, class: "form-control" %>
-  <img src="<%= NickdotcomWeb.Avatar.url({ @changeset.data.avatar_url, @changeset.data }, signed: true) %>" width="300" />
-  <%= error_tag f, :avatar_url %>
-
-  <%= label f, :password %>
-  <%= password_input f, :password %>
-  <%= error_tag f, :password %>
-
-  <%= label f, :password_confirmation %>
-  <%= password_input f, :password_confirmation %>
-  <%= error_tag f, :password_confirmation %>
-
-  <div>
-    <%= submit "Update" %>
-  </div>
-<% end %>
-
+</section>
