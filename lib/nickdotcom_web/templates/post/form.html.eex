@@ -1,3 +1,4 @@
+<section class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 <%= form_for @changeset, @action, fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
@@ -5,12 +6,12 @@
     </div>
   <% end %>
 
-  <%= label f, :title %>
-  <%= text_input f, :title %>
+  <%= label f, :title, class: "block text-gray-700 text-sm font-bold mb-2" %>
+  <%= text_input f, :title, class: "shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" %>
   <%= error_tag f, :title %>
 
-  <%= label f, :body %>
-  <%= textarea f, :body, class: "form-control", id: "body-editor" %>
+  <%= label f, :body, class: "block text-gray-700 text-sm font-bold mb-2" %>
+  <%= textarea f, :body, class: "shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline form-control", id: "body-editor" %>
   <%= error_tag f, :body %>
 
 
@@ -26,3 +27,4 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 <script src="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <script>var simplemde = new SimpleMDE();</script>
+</section>

@@ -1,6 +1,10 @@
-<section class="row">
-  <article class="column">
-    <h3>About</h3>
-    <p>You ever feel like a dummy?</p>
-  </article>
+<section class="text-gray-700 body-font">
+  <div class="px-5 py-24">
+    <div class="flex flex-col text-center w-full mb-20">
+      <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">Master of none</h2>
+      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Nicks software experience developer</h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Developer with over 10 years experience building and maintaining front-end web applications. If you have any questions, please feel free to drop me a line.</p>
+    </div>
+    <button onclick="location.href='mailto:yeag123@gmail.com';" class="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Contact</button>
+  </div>
 </section>
