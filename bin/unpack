@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -e
+set -x
+
+cd /opt/app || exit 1
+
+# Extract release
+tar -xzf nickdotcom.tar.gz
+# Clean up archive
+rm nickdotcom.tar.gz
+# Set permissions
+chown -R ec2-user:ec2-user /opt/app
+
+# Set up systemd service if not already done
+__cwd="$(pwd)"
+if [ ! -L /lib/systemd/system/nickdotcom.service ]; then
+    pushd /lib/systemd/system
+    ln -s "${__cwd}/etc/nickdotcom.service" nickdotcom.service
+    popd
+fi
+
+exit 0

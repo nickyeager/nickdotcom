@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+if systemctl is-active nickdotcom.service; then
+    systemctl stop nickdotcom.service
+fi
+
+exit 0
