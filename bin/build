@@ -48,8 +48,8 @@ function do_install(){
 
 function do_pre_build(){
     echo "==> Installing hex, rebar"
-    mix local.rebar --force
-    mix local.hex --force
+    mix local.rebar
+    mix local.hex
 
     echo "==> Installing project dependencies"
     mix deps.get
