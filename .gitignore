@@ -35,3 +35,7 @@ npm-debug.log
 
 # Remove .idea directory
 .idea
+
+# config settings
+config/dev.secret.exs
+config/prod.secret.exs
