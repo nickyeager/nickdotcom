@@ -53,7 +53,8 @@ defmodule Nickdotcom.MixProject do
       {:ex_aws_s3, "~> 2.0"},
       {:hackney, "~> 1.6"},
       {:poison, "~> 3.1"},
-      {:sweet_xml, "~> 0.6"}
+      {:sweet_xml, "~> 0.6"},
+      {:distillery, "~> 2.0"}
     ]
   end
 

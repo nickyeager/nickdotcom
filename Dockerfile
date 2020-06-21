@@ -47,11 +47,14 @@ RUN mix do deps.get, deps.compile, compile
 # This is mostly here for demonstration purposes
 RUN if [ ! "$SKIP_PHOENIX" = "true" ]; then \
   cd ${PHOENIX_SUBDIR}/assets && \
-  yarn install && \
-  yarn deploy && \
+  yarn install --ignore-engines && \
+  yarn deploy --ignore-engines && \
   cd - && \
   mix phx.digest; \
 fi
+
+# Potentially Set up the database
+RUN mix do ecto.create, ecto.migrate
 
 RUN \
   mkdir -p /opt/built && \
