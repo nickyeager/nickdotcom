@@ -52,4 +52,19 @@ defmodule NickdotcomWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug NickdotcomWeb.Router
+
+  @doc """
+  Callback invoked for dynamically configuring the endpoint.
+
+  It receives the endpoint configuration and checks if
+  configuration should be loaded from the system environment.
+  """
+  def init(_key, config) do
+    if config[:load_from_system_env] do
+      port = Application.get_env(:nickdotcom, :app_port) || 4000
+      {:ok, Keyword.put(config, :http, [:inet6, port: port])}
+    else
+      {:ok, config}
+    end
+  end
 end
