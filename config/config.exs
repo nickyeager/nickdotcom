@@ -7,8 +7,8 @@
 # General application configuration
 use Mix.Config
 
-config :nickdotcom,
-  ecto_repos: [Nickdotcom.Repo]
+#config :nickdotcom,
+#  ecto_repos: [Nickdotcom.Repo]
 
 # Configures the endpoint
 config :nickdotcom, NickdotcomWeb.Endpoint,
