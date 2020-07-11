@@ -1,41 +1,33 @@
-# In this file, we load production configuration and secrets
-# from environment variables. You can also hardcode secrets,
-# although such is generally not recommended and you have to
-# remember to add this file to your .gitignore.
 import Config
 
-#database_url =
-#  System.get_env("DATABASE_URL") ||
-#    raise """
-#    environment variable DATABASE_URL is missing.
-#    For example: ecto://USER:PASS@HOST/DATABASE
-#    """
-
-#config :nickdotcom, Nickdotcom.Repo,
-#  ssl: true,
-#  url: database_url,
-#  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
-
-secret_key_base =
-  System.get_env("SECRET_KEY_BASE") ||
-    raise """
-    environment variable SECRET_KEY_BASE is missing.
-    You can generate one by calling: mix phx.gen.secret
-    """
+secret_key_base = System.fetch_env!("SECRET_KEY_BASE")
+app_port = "4000"
+app_hostname = System.fetch_env!("HOSTNAME")
+db_user = System.fetch_env!("PGUSER")
+db_password = System.fetch_env!("PGPASSWORD")
+db_host = System.fetch_env!("PGHOST")
+db_name = System.fetch_env!("PGDATABASE")
+db_port = System.fetch_env!("PGPORT")
 
 config :nickdotcom, NickdotcomWeb.Endpoint,
-  http: [
-    port: String.to_integer(System.get_env("PORT") || "4000"),
-    transport_options: [socket_opts: [:inet6]]
-  ],
-  secret_key_base: secret_key_base
+       server: true,
+       http: [port: {:system, "PORT"}], # Needed for Phoenix 1.2 and 1.4. Doesn't hurt for 1.3.
+       url: [host: nil, port: 443]
 
-# ## Using releases (Elixir v1.9+)
-#
-# If you are doing OTP releases, you need to instruct Phoenix
-# to start each relevant endpoint:
-#
-#     config :nickdotcom, NickdotcomWeb.Endpoint, server: true
-#
-# Then you can assemble a release by calling `mix release`.
-# See `mix help release` for more information.
+config :nickdotcom,
+       app_port: app_port
+
+config :nickdotcom,
+       app_hostname: app_hostname
+
+# Configure your database
+config :nickdotcom, Nickdotcom.Repo,
+       username: db_user,
+       password: db_password,
+       database: db_name,
+       hostname: db_host,
+       port: db_port |> String.to_integer,
+       pool_size: 10
+
+config :nickdotcom,
+       ecto_repos: [Nickdotcom.Repo]

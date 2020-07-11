@@ -21,7 +21,7 @@
       </a>
     <nav role="navigation" class="md:ml-auto flex flex-wrap items-center text-base justify-center">
         <%= if Pow.Plug.current_user(@conn) do %>
-          <p>Signed in as: <%= @current_user.email %></p>
+          <p class="mr-5">Signed in as: <%= @current_user.email %></p>
           <%= link "Sign out", class: "mr-5 hover:text-gray-900", to: Routes.pow_session_path(@conn, :delete), method: :delete %>
           <%= link "Edit account", class: "mr-5 hover:text-gray-900", to: Routes.pow_registration_path(@conn, :edit) %>
         <% else %>

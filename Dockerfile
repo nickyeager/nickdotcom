@@ -1,85 +1,52 @@
-# The version of Alpine to use for the final image
-# This should match the version of Alpine that the `elixir:1.7.2-alpine` image uses
-ARG ALPINE_VERSION=3.8
+# ---- Build Stage ----
+FROM elixir:alpine AS app_builder
 
-FROM elixir:1.7.2-alpine AS builder
+# Set environment variables for building the application
+ENV MIX_ENV=prod \
+    TEST=1 \
+    LANG=C.UTF-8
 
-# The following are build arguments used to change variable parts of the image.
-# The name of your application/release (required)
-ARG APP_NAME
-# The version of the application we are building (required)
-ARG APP_VSN
-# The environment to build with
-ARG MIX_ENV=prod
-# Set this to true if this release is not a Phoenix app
-ARG SKIP_PHOENIX=false
-# If you are using an umbrella project, you can change this
-# argument to the directory the Phoenix app is in so that the assets
-# can be built
-ARG PHOENIX_SUBDIR=.
+RUN apk add --update git && \
+    rm -rf /var/cache/apk/*
 
-ENV SKIP_PHOENIX=${SKIP_PHOENIX} \
-    APP_NAME=${APP_NAME} \
-    APP_VSN=${APP_VSN} \
-    MIX_ENV=${MIX_ENV}
+# Install hex and rebar
+RUN mix local.hex --force && \
+    mix local.rebar --force
 
-# By convention, /opt is typically used for applications
-WORKDIR /opt/app
+# Create the application build directory
+RUN mkdir /app
+WORKDIR /app
 
-# This step installs all the build tools we'll need
-RUN apk update && \
-  apk upgrade --no-cache && \
-  apk add --no-cache \
-    nodejs \
-    yarn \
-    git \
-    build-base && \
-  mix local.rebar --force && \
-  mix local.hex --force
+# Copy over all the necessary application files and directories
+COPY config ./config
+COPY lib ./lib
+COPY priv ./priv
+COPY mix.exs .
+COPY mix.lock .
 
-# This copies our app source code into the build container
-COPY . .
+# Fetch the application dependencies and build the application
+RUN mix deps.get
+RUN mix deps.compile
+RUN mix phx.digest
+RUN mix release
 
-RUN mix do deps.get, deps.compile, compile
+# ---- Application Stage ----
+FROM alpine AS app
 
-# This step builds assets for the Phoenix app (if there is one)
-# If you aren't building a Phoenix app, pass `--build-arg SKIP_PHOENIX=true`
-# This is mostly here for demonstration purposes
-RUN if [ ! "$SKIP_PHOENIX" = "true" ]; then \
-  cd ${PHOENIX_SUBDIR}/assets && \
-  yarn install --ignore-engines && \
-  yarn deploy --ignore-engines && \
-  cd - && \
-  mix phx.digest; \
-fi
+ENV LANG=C.UTF-8
 
-# Potentially Set up the database
-RUN mix do ecto.create, ecto.migrate
+# Install openssl
+RUN apk add --update openssl ncurses-libs postgresql-client && \
+    rm -rf /var/cache/apk/*
 
-RUN \
-  mkdir -p /opt/built && \
-  mix distillery.release --verbose && \
-  cp _build/${MIX_ENV}/rel/${APP_NAME}/releases/${APP_VSN}/${APP_NAME}.tar.gz /opt/built && \
-  cd /opt/built && \
-  tar -xzf ${APP_NAME}.tar.gz && \
-  rm ${APP_NAME}.tar.gz
+# Copy over the build artifact from the previous step and create a non root user
+RUN adduser -D -h /home/app app
+WORKDIR /home/app
+COPY --from=app_builder /app/_build .
+RUN chown -R app: ./prod
+USER app
 
-# From this line onwards, we're in a new image, which will be the image used in production
-FROM alpine:${ALPINE_VERSION}
+COPY entrypoint.sh .
 
-# The name of your application/release (required)
-ARG APP_NAME
-
-RUN apk update && \
-    apk add --no-cache \
-      bash \
-      openssl-dev
-
-ENV REPLACE_OS_VARS=true \
-    APP_NAME=${APP_NAME}
-
-WORKDIR /opt/app
-
-COPY --from=builder /opt/built .
-
-CMD trap 'exit' INT; /opt/app/bin/${APP_NAME} foreground
+# Run the Phoenix app
+CMD ["./entrypoint.sh"]

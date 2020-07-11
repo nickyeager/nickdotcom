@@ -26,6 +26,6 @@
         </div>
     <% end %>
     </div>
-    <span><%= link "New Post", to: Routes.post_path(@conn, :new) %></span>
+    <div class="mt-8"><%= link "New Post", to: Routes.post_path(@conn, :new) %></div>
   </div>
 </section>
