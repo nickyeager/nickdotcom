@@ -8,7 +8,8 @@
 use Mix.Config
 
 config :nickdotcom,
-  ecto_repos: [Nickdotcom.Repo]
+  ecto_repos: [Nickdotcom.Repo],
+  show_sensitive_data_on_connection_error: true
 
 # Configures the endpoint
 config :nickdotcom, NickdotcomWeb.Endpoint,
