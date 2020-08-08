@@ -64,6 +64,12 @@ config :nickdotcom, NickdotcomWeb.Endpoint, server: true
 #       hackney_opts: [
 #         recv_timeout: :timer.minutes(1)
 #       ]
+config :nickdotcom, Nickdotcom.Repo,
+       adapter: Ecto.Adapters.Postgres,
+       pool_size: String.to_integer(System.get_env("POOL_SIZE") || "5"),
+       ssl: true,
+       url: System.get_env("DATABASE_URL"),
+       show_sensitive_data_on_connection_error: true
 
 
 # Finally import the config/prod.secret.exs which loads secrets
