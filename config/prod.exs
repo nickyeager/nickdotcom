@@ -14,6 +14,8 @@ use Mix.Config
 # Phoenix uses this information when generating URLs.
 config :nickdotcom, NickdotcomWeb.Endpoint,
        load_from_system_env: true,
+       http: [port: {:system, "PORT"}],
+       force_ssl: [rewrite_on: [:x_forwarded_proto]],
        url: [scheme: "https", host: "https://fast-depths-12980.herokuapp.com", port: 443],
 #       url:http: [port: {:system, "PORT"}], url: [scheme: "https", host: "https://fast-depths-12980.herokuapp.com", port: 443],
        cache_static_manifest: "priv/static/cache_manifest.json"
