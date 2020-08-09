@@ -12,14 +12,13 @@ use Mix.Config
 
 # Don't forget to configure the url host to something meaningful,
 # Phoenix uses this information when generating URLs.
+#https://fast-depths-12980.herokuapp.com
 config :nickdotcom, NickdotcomWeb.Endpoint,
        load_from_system_env: true,
-#       http: [port: {:system, "PORT"}],
-#       force_ssl: [rewrite_on: [:x_forwarded_proto]],
+         # Don't forget to replace pure-peak-67829 with the name of your Phoenix application that was created.
        url: [scheme: "https", host: "https://fast-depths-12980.herokuapp.com", port: 80],
-#       url:http: [port: {:system, "PORT"}], url: [scheme: "https", host: "https://fast-depths-12980.herokuapp.com", port: 443],
        cache_static_manifest: "priv/static/cache_manifest.json",
-       ecret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
+       secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
 
 # Do not print debug messages in production
 config :logger, level: :info
