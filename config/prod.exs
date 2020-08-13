@@ -16,8 +16,8 @@ use Mix.Config
 config :nickdotcom, NickdotcomWeb.Endpoint,
        load_from_system_env: true,
          # Don't forget to replace pure-peak-67829 with the name of your Phoenix application that was created.
-#       http: [port: {:system, "PORT"}],
-       url: [scheme: "https", host: "https://fast-depths-12980.herokuapp.com", port: 80],
+       http: [port: {:system, "PORT"}],
+       url: [scheme: "https", host: "https://fast-depths-12980.herokuapp.com", port: 443],
        cache_static_manifest: "priv/static/cache_manifest.json",
        secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE"),
        force_ssl: [rewrite_on: [:x_forwarded_proto]]
